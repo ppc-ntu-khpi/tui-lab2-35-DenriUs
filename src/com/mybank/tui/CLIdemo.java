@@ -1,10 +1,12 @@
 package com.mybank.tui;
 
+import com.mybank.data.DataSource;
 import com.mybank.domain.Bank;
 import com.mybank.domain.CheckingAccount;
 import com.mybank.domain.Customer;
 import com.mybank.domain.SavingsAccount;
 import com.mybank.reporting.CustomerReport;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
@@ -146,12 +148,15 @@ public class CLIdemo {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Bank.addCustomer("John", "Doe");
         Bank.addCustomer("Fox", "Mulder");
         Bank.getCustomer(0).addAccount(new CheckingAccount(2000));
         Bank.getCustomer(1).addAccount(new SavingsAccount(1000, 3));
+        
+        DataSource dataSource = new DataSource("data/test.dat");
+        dataSource.loadData();
 
         CLIdemo shell = new CLIdemo();
         shell.init();
